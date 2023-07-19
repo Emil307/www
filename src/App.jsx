@@ -13,20 +13,17 @@ const Item = styled.div`
   width: 100%;
 `
 
-const Bottom = styled.div``
-
-const Cost = styled.span``
-
-const Button = styled.button``
-
 function App() {
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   async function getPosts() {
+    setLoading(true);
     const API = 'https://jsonplaceholder.typicode.com';
 
     const response = await axios.get(`${API}/posts`);
     setPosts(response.data);
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -39,13 +36,16 @@ function App() {
         <p>упс.... я не нашел ни одного поста за сегодня</p> :
         <></>
       }
-
-      {posts.map(post =>
-        <Item key={post.id}>
-          <h1>{post.title}</h1>
-          <p>{post.body}</p>
-        </Item>  
-      )}
+      {loading ? <p>Loading...</p> :
+        <>
+          {posts.map(post =>
+            <Item key={post.id}>
+              <h1>{post.title}</h1>
+              <p>{post.body}</p>
+            </Item>  
+          )}
+        </>
+      }
     </Container>
   </>)
 }
