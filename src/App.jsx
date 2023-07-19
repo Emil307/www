@@ -16,14 +16,20 @@ const Item = styled.div`
 function App() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   async function getPosts() {
-    setLoading(true);
-    const API = 'https://jsonplaceholder.typicode.com';
-
-    const response = await axios.get(`${API}/posts`);
-    setPosts(response.data);
-    setLoading(false);
+    try {
+      setLoading(true);
+      const API = 'https://jsonplaceholder.typicode.com';
+  
+      const response = await axios.get(`${API}/posts`);
+      setPosts(response.data);
+      setLoading(false);
+    } catch (e) {
+      console.log(e);
+      setError(e);
+    }
   }
 
   useEffect(() => {
@@ -32,10 +38,7 @@ function App() {
 
   return (<>
     <Container>
-      {posts.length == 0 ? 
-        <p>упс.... я не нашел ни одного поста за сегодня</p> :
-        <></>
-      }
+      {error ? <p>{error}</p> : <></>}
       {loading ? <p>Loading...</p> :
         <>
           {posts.map(post =>
