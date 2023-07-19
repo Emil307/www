@@ -10,12 +10,7 @@ const Container = styled.div`
 
 const Item = styled.div`
   border: 1px #000 solid;
-  width: 360px;
-`
-
-const Image = styled.img`
-  width: 360px;
-  height: auto;
+  width: 100%;
 `
 
 const Bottom = styled.div``
@@ -46,8 +41,9 @@ function App() {
       }
 
       {posts.map(post =>
-        <Item>
+        <Item key={post.id}>
           <h1>{post.title}</h1>
+          <p>{post.body}</p>
         </Item>  
       )}
     </Container>
