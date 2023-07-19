@@ -8,7 +8,9 @@ const Container = styled.div`
 `
 
 const Item = styled.div`
-
+  padding: 10px;
+  border: 1px #000 solid;
+  width: 360px;
 `
 
 const Bottom = styled.div``
